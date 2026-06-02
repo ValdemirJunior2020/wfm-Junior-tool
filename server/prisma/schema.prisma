@@ -1,0 +1,149 @@
+// server/prisma/schema.prisma
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum VendorName {
+  Tep
+  Concentrix
+  Buwelo
+  Telus
+}
+
+enum EmploymentStatus {
+  Active
+  Inactive
+  Training
+  Leave
+}
+
+model Vendor {
+  id        String   @id @default(cuid())
+  name      VendorName @unique
+  country   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  agents    Agent[]
+  dailyLogs DailyTimeLog[]
+  metrics   VendorMonthlyMetric[]
+}
+
+model Agent {
+  id           String           @id @default(cuid())
+  employeeId   String           @unique
+  fullName     String
+  vendorId     String
+  hourlyRate   Decimal          @db.Decimal(8, 2)
+  status       EmploymentStatus @default(Active)
+  hireDate     DateTime?
+  supervisor   String?
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+
+  vendor       Vendor           @relation(fields: [vendorId], references: [id])
+  dailyLogs    DailyTimeLog[]
+  qualityLogs  QualityMetric[]
+}
+
+model DailyTimeLog {
+  id                       String   @id @default(cuid())
+  workDate                 DateTime
+  vendorId                 String
+  agentId                  String
+  scheduledStart           DateTime
+  scheduledEnd             DateTime
+  actualLogin              DateTime
+  actualLogout             DateTime
+  firstBreakStart          DateTime?
+  firstBreakEnd            DateTime?
+  lunchStart               DateTime?
+  lunchEnd                 DateTime?
+  secondBreakStart         DateTime?
+  secondBreakEnd           DateTime?
+  meetingMinutes           Int      @default(0)
+  trainingMinutes          Int      @default(0)
+  systemDowntimeMinutes    Int      @default(0)
+  afterCallWorkMinutes     Int      @default(0)
+  productiveMinutes        Int      @default(0)
+  unproductiveShrinkageMin Int      @default(0)
+  callsHandled             Int      @default(0)
+  avgHandleTimeSeconds     Int      @default(0)
+  occupancyPercent         Decimal  @db.Decimal(5, 2)
+  adherencePercent         Decimal  @db.Decimal(5, 2)
+  notes                    String?
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+
+  vendor Vendor @relation(fields: [vendorId], references: [id])
+  agent  Agent  @relation(fields: [agentId], references: [id])
+
+  @@index([workDate])
+  @@index([vendorId, workDate])
+  @@index([agentId, workDate])
+}
+
+model QualityMetric {
+  id                String   @id @default(cuid())
+  agentId           String
+  metricDate         DateTime
+  qaScore            Decimal  @db.Decimal(5, 2)
+  firstCallResolution Decimal @db.Decimal(5, 2)
+  repeatCallRate     Decimal  @db.Decimal(5, 2)
+  costPerCall        Decimal  @db.Decimal(8, 2)
+  callsAudited       Int      @default(0)
+  createdAt          DateTime @default(now())
+
+  agent Agent @relation(fields: [agentId], references: [id])
+
+  @@index([metricDate])
+  @@index([agentId, metricDate])
+}
+
+model VendorMonthlyMetric {
+  id                      String   @id @default(cuid())
+  vendorId                String
+  month                   DateTime
+  currentBilledAgents     Int
+  optimizedRequiredAgents Int
+  monthlyBillableHours    Int
+  avgHourlyRate           Decimal @db.Decimal(8, 2)
+  monthlyCallVolume       Int
+  avgHandleTimeSeconds    Int
+  serviceLevelSeconds     Int
+  targetServiceLevel      Decimal @db.Decimal(5, 2)
+  occupancyTarget         Decimal @db.Decimal(5, 2)
+  shrinkagePercent        Decimal @db.Decimal(5, 2)
+  qaScore                 Decimal @db.Decimal(5, 2)
+  firstCallResolution     Decimal @db.Decimal(5, 2)
+  costPerCall             Decimal @db.Decimal(8, 2)
+  monthlyWaste            Decimal @db.Decimal(12, 2)
+  monthlySavings          Decimal @db.Decimal(12, 2)
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
+
+  vendor Vendor @relation(fields: [vendorId], references: [id])
+
+  @@unique([vendorId, month])
+  @@index([month])
+}
+
+model SavingsAuditLog {
+  id                          String   @id @default(cuid())
+  vendorName                  VendorName
+  calculationDate             DateTime @default(now())
+  currentBilledAgents         Int
+  optimizedRequiredAgents     Int
+  agentGap                    Int
+  avgHourlyRate               Decimal  @db.Decimal(8, 2)
+  monthlyBillableHoursPerAgent Int
+  estimatedMonthlySavings     Decimal  @db.Decimal(12, 2)
+  estimatedAnnualSavings      Decimal  @db.Decimal(12, 2)
+  assumptions                 Json?
+  createdBy                   String?
+}
