@@ -28,6 +28,8 @@ const GOOGLE_SHEET_URL =
 
 const VALID_VENDORS = ["Tep", "Concentrix", "Buwelo", "Telus"];
 
+const LAST_SUNDAY_DATE = "2026-05-24T16:16:03";
+
 function formatMoney(value) {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
@@ -54,8 +56,7 @@ function normalizeVendorName(value) {
 }
 
 function OverviewPage() {
-  const { loading, error, source, generatedAt, vendorSummary, agents } =
-    useDashboardData();
+  const { loading, error, source, vendorSummary, agents } = useDashboardData();
 
   const cleanVendorSummary = useMemo(() => {
     const latestByVendor = new Map();
@@ -230,7 +231,7 @@ function OverviewPage() {
         </div>
 
         <div style={{ marginTop: "18px" }}>
-          <DataSourceBadge source={source} generatedAt={generatedAt} />
+          <DataSourceBadge source={source} generatedAt={LAST_SUNDAY_DATE} />
         </div>
       </section>
 
@@ -330,9 +331,7 @@ function OverviewPage() {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="vendor" />
               <YAxis tickFormatter={(value) => `$${Number(value) / 1000}k`} />
-              <Tooltip
-                formatter={(value) => [formatMoney(value), "Amount"]}
-              />
+              <Tooltip formatter={(value) => [formatMoney(value), "Amount"]} />
               <Legend />
               <Line
                 type="monotone"
