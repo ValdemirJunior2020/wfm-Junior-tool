@@ -29,7 +29,7 @@ const GOOGLE_SHEET_URL =
 const LOADING_GIF_URL =
   "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGJ1bmtiMXNsejc2b2ExcjlvdDBxazMxZHRiNmRiemJjazd3OWNrbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/hL9q5k9dk9l0wGd4e0/giphy.gif";
 
-const VALID_VENDORS = ["Tep", "Concentrix", "Buwelo", "Telus"];
+const VALID_VENDORS = ["Tep", "Concentrix", "Buwelo", "Telus", "WNS"];
 
 const LAST_SUNDAY_DATE = "2026-05-24T16:16:03";
 
@@ -232,19 +232,29 @@ function OverviewPage() {
     )
     .slice(0, 8);
 
-  return (
-    <div className="page-stack">
-      <section className="page-header">
-        <div className="page-header-actions">
-          <div>
-            <span className="eyebrow">Executive Overview</span>
-            <h1>Call Center Cost Intelligence Dashboard</h1>
-            <p>
-              A leadership-ready view of staffing efficiency, financial waste,
-              vendor performance, quality return on investment, and estimated
-              savings across Tep, Concentrix, Buwelo, and Telus.
-            </p>
-          </div>
+return (
+  <div className="page-stack">
+    <section className="page-header">
+      <div className="page-header-actions">
+        <div>
+          <span className="eyebrow">Executive Overview</span>
+
+          <h1>
+            <span className="highlight-red">Agent Utilization</span> +{" "}
+            <span className="highlight-red">QA Management Reviews</span>
+          </h1>
+
+          <p className="dashboard-subtitle">
+            Call Center Cost Intelligence Dashboard Agent Utilization +QA Management Review
+          </p>
+
+          <p>
+            A leadership-ready dashboard for reviewing agent utilization, QA
+            management results, staffing efficiency, financial waste, vendor
+            performance, quality return on investment, and estimated savings
+            across TEP, Concentrix, Buwelo, and WNS.
+          </p>
+        </div>
 
           <a
             href={GOOGLE_SHEET_URL}

@@ -3,21 +3,16 @@
 import React from "react";
 import { Database } from "lucide-react";
 
-function DataSourceBadge({ source, generatedAt }) {
-  const isGoogleSheet = source === "google-sheet";
+const FORCED_LAST_UPDATE = "Sunday 05/24/26";
 
+function DataSourceBadge() {
   return (
-    <div
-      className="callout-pill"
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: "8px",
-      }}
-    >
+    <div className="global-data-source-badge">
       <Database size={16} />
-      Data Source: {isGoogleSheet ? "Google Sheet" : source || "Unknown"}
-      {generatedAt ? ` · ${new Date(generatedAt).toLocaleString()}` : ""}
+      <span>
+        Data Source: <strong>Google Sheet</strong> · Last update:{" "}
+        <strong>{FORCED_LAST_UPDATE}</strong>
+      </span>
     </div>
   );
 }

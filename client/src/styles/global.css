@@ -560,3 +560,291 @@ tr:last-child td {
     flex-direction: column;
   }
 }
+
+/* QA KPI Review page */
+.qa-filter-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.qa-filter-grid label {
+  display: grid;
+  gap: 8px;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.qa-pass-badge,
+.qa-fail-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 76px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 950;
+  letter-spacing: 0.06em;
+}
+
+.qa-pass-badge {
+  color: #166534;
+  background: #dcfce7;
+  border: 1px solid #86efac;
+}
+
+.qa-fail-badge {
+  color: #991b1b;
+  background: #fee2e2;
+  border: 1px solid #fca5a5;
+}
+
+.qa-gap-good {
+  color: #15803d;
+  font-weight: 950;
+}
+
+.qa-gap-bad {
+  color: #dc2626;
+  font-weight: 950;
+}
+
+@media (max-width: 1100px) {
+  .qa-filter-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .qa-filter-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Logo in shared sidebar brand card */
+.brand-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 16px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.04));
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    rgba(0, 0, 0, 0.18) 0 18px 35px -18px,
+    inset rgba(255, 255, 255, 0.08) 0 1px 0;
+  margin-bottom: 20px;
+}
+
+.brand-logo-wrap {
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ffffff, #e2e8f0);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  box-shadow:
+    rgba(59, 130, 246, 0.25) 0 12px 24px -10px,
+    inset rgba(255, 255, 255, 0.95) 0 1px 0;
+}
+
+.brand-logo-image {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  display: block;
+}
+
+.brand-text-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.brand-text-block h1 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.1;
+  color: #ffffff;
+  font-weight: 900;
+}
+
+.brand-text-block p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.72);
+  font-weight: 600;
+}
+
+/* Optional: smaller logo on mobile */
+@media (max-width: 700px) {
+  .brand-logo-wrap {
+    width: 54px;
+    height: 54px;
+    min-width: 54px;
+  }
+
+  .brand-logo-image {
+    width: 46px;
+    height: 46px;
+  }
+
+  .brand-text-block h1 {
+    font-size: 15px;
+  }
+
+  .brand-text-block p {
+    font-size: 12px;
+  }
+}
+
+/* client/src/index.css */
+
+.dashboard-main-title {
+  font-family: "Orbitron", sans-serif;
+  font-size: clamp(2rem, 4vw, 4rem);
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.highlight-red {
+  color: #0f0101;
+  font-weight: 900;
+  text-shadow: 0 4px 18px rgba(220, 38, 38, 0.25);
+}
+
+.dashboard-subtitle {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+/* Big centered logo above every page */
+.page-logo-center {
+  max-width: 1440px;
+  margin: 0 auto 22px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.page-logo-main {
+  width: min(520px, 90%);
+  max-height: 210px;
+  object-fit: contain;
+  display: block;
+  padding: 16px 22px;
+  border-radius: 32px;
+  background:
+    radial-gradient(circle at top left, rgba(34, 197, 94, 0.14), transparent 18rem),
+    radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.14), transparent 18rem),
+    #ffffff;
+  border: 1px solid rgba(37, 99, 235, 0.12);
+  box-shadow:
+    rgba(15, 23, 42, 0.1) 0 22px 52px -22px,
+    inset rgba(255, 255, 255, 0.95) 0 1px 0;
+}
+
+/* Keep data source badge under logo */
+.global-data-source-row {
+  max-width: 1440px;
+  margin: 0 auto 18px;
+  display: flex;
+  justify-content: center;
+}
+
+.global-data-source-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  color: #166534;
+  background: linear-gradient(135deg, #dcfce7, #bbf7d0);
+  border: 1px solid #86efac;
+  font-weight: 850;
+  box-shadow:
+    rgba(22, 163, 74, 0.22) 0 14px 28px -12px,
+    inset rgba(255, 255, 255, 0.75) 0 1px 0;
+}
+
+.global-data-source-badge strong {
+  font-weight: 950;
+}
+
+@media (max-width: 700px) {
+  .page-logo-main {
+    width: 100%;
+    max-height: 160px;
+    padding: 12px;
+    border-radius: 22px;
+  }
+
+  .global-data-source-badge {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    border-radius: 18px;
+  }
+}
+/* Relaxing background music player */
+.music-player {
+  max-width: 1440px;
+  margin: 0 auto 14px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.music-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: 1px solid #bfdbfe;
+  border-radius: 999px;
+  padding: 10px 15px;
+  color: #1e3a8a;
+  background:
+    radial-gradient(circle at top left, rgba(34, 197, 94, 0.14), transparent 12rem),
+    linear-gradient(135deg, #eff6ff, #ffffff);
+  font-weight: 900;
+  box-shadow:
+    rgba(37, 99, 235, 0.18) 0 14px 28px -14px,
+    inset rgba(255, 255, 255, 0.95) 0 1px 0;
+  transition: all 0.25s ease;
+}
+
+.music-toggle:hover {
+  transform: translateY(-2px);
+  border-color: #86efac;
+  color: #166534;
+  box-shadow:
+    rgba(22, 163, 74, 0.22) 0 18px 32px -14px,
+    inset rgba(255, 255, 255, 0.95) 0 1px 0;
+}
+
+.music-toggle.playing {
+  color: #166534;
+  background: linear-gradient(135deg, #dcfce7, #eff6ff);
+  border-color: #86efac;
+}
+
+.music-toggle span {
+  font-size: 13px;
+}
+
+@media (max-width: 700px) {
+  .music-player {
+    justify-content: center;
+  }
+
+  .music-toggle {
+    width: 100%;
+  }
+}

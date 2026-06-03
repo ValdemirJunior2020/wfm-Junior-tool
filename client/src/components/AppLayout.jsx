@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import {
   BarChart3,
   Calculator,
+  ClipboardCheck,
   ClipboardList,
   DollarSign,
   LayoutDashboard,
@@ -12,6 +13,8 @@ import {
   ScatterChart,
   Users,
 } from "lucide-react";
+import DataSourceBadge from "./DataSourceBadge.jsx";
+import MusicPlayer from "./MusicPlayer.jsx";
 
 function AppLayout({ children }) {
   const menuItems = [
@@ -39,6 +42,11 @@ function AppLayout({ children }) {
       label: "Agent Details",
       path: "/agents",
       icon: <Users size={20} />,
+    },
+    {
+      label: "QA KPI Review",
+      path: "/qa-kpi-review",
+      icon: <ClipboardCheck size={20} />,
     },
     {
       label: "Data Requirements",
@@ -85,11 +93,27 @@ function AppLayout({ children }) {
 
         <div className="sidebar-footer">
           <span>Demo Vendors</span>
-          <strong>Tep · Concentrix · Buwelo · Telus</strong>
+          <strong>Tep · Concentrix · Buwelo-C · Buwelo-G · Telus · WNS</strong>
         </div>
       </aside>
 
-      <main className="main-content">{children}</main>
+      <main className="main-content">
+        <MusicPlayer />
+
+        <div className="page-logo-center">
+          <img
+            src="/logo.png"
+            alt="Agent Utilization QA Management Logo"
+            className="page-logo-main"
+          />
+        </div>
+
+        <div className="global-data-source-row">
+          <DataSourceBadge />
+        </div>
+
+        {children}
+      </main>
     </div>
   );
 }

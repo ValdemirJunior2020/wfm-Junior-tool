@@ -119,15 +119,16 @@ export function useDashboardData() {
     return Array.from(names);
   }, [state.vendorSummary, state.agents]);
 
-  const vendorColors = useMemo(
-    () => ({
-      Tep: "#2563eb",
-      Concentrix: "#16a34a",
-      Buwelo: "#f97316",
-      Telus: "#9333ea",
-    }),
-    []
-  );
+ const vendorColors = useMemo(
+  () => ({
+    Tep: "#2563eb",
+    Concentrix: "#16a34a",
+    Buwelo: "#f97316",
+    Telus: "#9333ea",
+    WNS: "#dc2626",
+  }),
+  []
+);
 
   const qualityCostScatter = useMemo(() => {
     return state.agents.map((agent) => ({
