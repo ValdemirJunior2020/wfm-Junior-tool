@@ -46,8 +46,14 @@ function AgentsPage() {
       0
     );
 
-    const totalSlackCost = filteredAgents.reduce(
-      (sum, agent) => sum + Number(agent.costOfGeneralSlack || 0),
+    const totalUnproductiveCost = filteredAgents.reduce(
+      (sum, agent) =>
+        sum +
+        Number(
+          agent.costOfUnproductiveShrinkage ||
+            agent.costOfGeneralSlack ||
+            0
+        ),
       0
     );
 
@@ -64,10 +70,11 @@ function AgentsPage() {
           ) / totalAgents
         : 0;
 
-    const avgFcrScore =
+    const avgOcrScore =
       totalAgents > 0
         ? filteredAgents.reduce(
-            (sum, agent) => sum + Number(agent.fcrScore || 0),
+            (sum, agent) =>
+              sum + Number(agent.ocrScore || agent.fcrScore || 0),
             0
           ) / totalAgents
         : 0;
@@ -83,10 +90,10 @@ function AgentsPage() {
     return {
       totalAgents,
       totalCalls,
-      totalSlackCost,
+      totalUnproductiveCost,
       totalUnproductiveHours,
       avgQaScore,
-      avgFcrScore,
+      avgOcrScore,
       avgCostPerCall,
     };
   }, [filteredAgents]);
@@ -94,8 +101,12 @@ function AgentsPage() {
   const sortedAgents = useMemo(() => {
     return [...filteredAgents].sort(
       (a, b) =>
-        Number(b.costOfGeneralSlack || 0) -
-        Number(a.costOfGeneralSlack || 0)
+        Number(
+          b.costOfUnproductiveShrinkage || b.costOfGeneralSlack || 0
+        ) -
+        Number(
+          a.costOfUnproductiveShrinkage || a.costOfGeneralSlack || 0
+        )
     );
   }, [filteredAgents]);
 
@@ -107,7 +118,7 @@ function AgentsPage() {
         <p>
           This page shows the operational details needed to build a professional
           workforce management tool: schedule adherence, login/logout, break
-          impact, lunch, calls handled, AHT, QA, FCR, cost per call, and cost of
+          impact, lunch, calls handled, AHT, QA, OCR, cost per call, and cost of
           unproductive shrinkage.
         </p>
       </section>
@@ -123,9 +134,9 @@ function AgentsPage() {
 
         <div className="kpi-card danger">
           <p>
-            <DollarSign size={18} /> Cost of General Slack
+            <DollarSign size={18} /> Unproductive Cost
           </p>
-          <h2>{formatMoney(totals.totalSlackCost)}</h2>
+          <h2>{formatMoney(totals.totalUnproductiveCost)}</h2>
           <span>Estimated cost from unproductive shrinkage.</span>
         </div>
 
@@ -156,7 +167,7 @@ function AgentsPage() {
           This view contains <b>{formatNumber(totals.totalAgents)}</b> agents,
           <b> {formatNumber(totals.totalCalls)}</b> handled calls, an average
           cost per call of <b>{formatMoney(totals.avgCostPerCall)}</b>, and an
-          average FCR score of <b>{totals.avgFcrScore.toFixed(1)}%</b>.
+          average OCR score of <b>{totals.avgOcrScore.toFixed(1)}%</b>.
         </p>
       </section>
 
@@ -219,26 +230,26 @@ function AgentsPage() {
           </div>
         </div>
 
-       <div className="responsive-table tall-table">
-  <table>
-    <thead>
-      <tr>
-        <th>Agent</th>
-        <th>Vendor</th>
-        <th>Supervisor</th>
-        <th>Schedule</th>
-        <th>Login / Logout</th>
-        <th>Calls</th>
-        <th>AHT</th>
-        <th>QA</th>
-        <th>OCR</th>
-        <th>Cost / Call</th>
-        <th>Unproductive Hours</th>
-        <th>Unproductive Cost</th>
-      </tr>
-    </thead>
+        <div className="responsive-table tall-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Agent</th>
+                <th>Vendor</th>
+                <th>Supervisor</th>
+                <th>Schedule</th>
+                <th>Login / Logout</th>
+                <th>Calls</th>
+                <th>AHT</th>
+                <th>QA</th>
+                <th>OCR</th>
+                <th>Cost / Call</th>
+                <th>Unproductive Hours</th>
+                <th>Unproductive Cost</th>
+              </tr>
+            </thead>
 
-    <tbody>
+            <tbody>
               {sortedAgents.map((agent) => (
                 <tr key={agent.employeeId}>
                   <td>
@@ -267,16 +278,24 @@ function AgentsPage() {
 
                   <td>{formatNumber(agent.ahtSeconds)} sec</td>
 
-                  <td>{Number(agent.qaScore).toFixed(1)}%</td>
+                  <td>{Number(agent.qaScore || 0).toFixed(1)}%</td>
 
-                 <td>{Number(agent.ocrScore || agent.fcrScore || 0).toFixed(1)}%</td>
+                  <td>
+                    {Number(agent.ocrScore || agent.fcrScore || 0).toFixed(1)}%
+                  </td>
 
-                  <td>{formatMoney(agent.costPerCall)}</td>
+                  <td>${Number(agent.costPerCall || 0).toFixed(2)}</td>
 
-                  <td>{Number(agent.unproductiveShrinkageHours).toFixed(2)}</td>
+                  <td>
+                    {Number(agent.unproductiveShrinkageHours || 0).toFixed(2)}
+                  </td>
 
                   <td className="danger-text">
-                    {formatMoney(agent.costOfGeneralSlack)}
+                    {formatMoney(
+                      agent.costOfUnproductiveShrinkage ||
+                        agent.costOfGeneralSlack ||
+                        0
+                    )}
                   </td>
                 </tr>
               ))}
