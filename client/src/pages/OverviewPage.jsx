@@ -26,6 +26,9 @@ import DataSourceBadge from "../components/DataSourceBadge.jsx";
 const GOOGLE_SHEET_URL =
   "https://docs.google.com/spreadsheets/d/1AO5cK9QpQP4hW5s-C53b1IcPkZoRGA_nDyigN_rDRr0/edit?gid=275923664#gid=275923664";
 
+const LOADING_GIF_URL =
+  "https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGJ1bmtiMXNsejc2b2ExcjlvdDBxazMxZHRiNmRiemJjazd3OWNrbyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/hL9q5k9dk9l0wGd4e0/giphy.gif";
+
 const VALID_VENDORS = ["Tep", "Concentrix", "Buwelo", "Telus"];
 
 const LAST_SUNDAY_DATE = "2026-05-24T16:16:03";
@@ -121,12 +124,36 @@ function OverviewPage() {
 
   if (loading) {
     return (
-      <div className="page-stack">
-        <section className="page-header">
-          <span className="eyebrow">Loading</span>
-          <h1>Loading Google Sheet Data...</h1>
-          <p>Reading live dashboard data from your WFM Google Sheet.</p>
-        </section>
+      <div className="overview-loading-shell">
+        <div className="overview-loading-card">
+          <div className="overview-loading-gif-wrap">
+            <img
+              src={LOADING_GIF_URL}
+              alt="Loading Google Sheet data"
+              className="overview-loading-gif"
+            />
+          </div>
+
+          <span className="eyebrow">Loading Google Sheet Data</span>
+
+          <h1>Building Your Executive Dashboard...</h1>
+
+          <p>
+            Please wait while WFM Pro reads live workforce, vendor, QA, OCR, and
+            cost data from your Google Sheet.
+          </p>
+
+          <div className="loading-progress-bar">
+            <div className="loading-progress-fill" />
+          </div>
+
+          <div className="loading-steps">
+            <span>📊 Reading vendor metrics</span>
+            <span>👥 Loading agent records</span>
+            <span>💰 Calculating waste and savings</span>
+            <span>✅ Preparing executive charts</span>
+          </div>
+        </div>
       </div>
     );
   }

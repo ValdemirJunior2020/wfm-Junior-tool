@@ -10,6 +10,7 @@ import ErlangSavingsPage from "./pages/ErlangSavingsPage.jsx";
 import QualityCostPage from "./pages/QualityCostPage.jsx";
 import AgentsPage from "./pages/AgentsPage.jsx";
 import DataRequirementsPage from "./pages/DataRequirementsPage.jsx";
+import WhyItMattersPage from "./pages/WhyItMattersPage.jsx";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/quality-cost" element={<QualityCostPage />} />
         <Route path="/agents" element={<AgentsPage />} />
         <Route path="/data-requirements" element={<DataRequirementsPage />} />
+        <Route path="/why-it-matters" element={<WhyItMattersPage />} />
       </Routes>
     </AppLayout>
   );

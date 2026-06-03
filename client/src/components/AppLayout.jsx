@@ -8,6 +8,7 @@ import {
   ClipboardList,
   DollarSign,
   LayoutDashboard,
+  Lightbulb,
   ScatterChart,
   Users,
 } from "lucide-react";
@@ -43,6 +44,11 @@ function AppLayout({ children }) {
       label: "Data Requirements",
       path: "/data-requirements",
       icon: <ClipboardList size={20} />,
+    },
+    {
+      label: "Why It Matters",
+      path: "/why-it-matters",
+      icon: <Lightbulb size={20} />,
     },
   ];
 
