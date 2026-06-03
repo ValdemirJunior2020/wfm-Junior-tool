@@ -219,26 +219,26 @@ function AgentsPage() {
           </div>
         </div>
 
-        <div className="responsive-table tall-table">
-          <table>
-            <thead>
-              <tr>
-                <th>Agent</th>
-                <th>Vendor</th>
-                <th>Supervisor</th>
-                <th>Schedule</th>
-                <th>Login / Logout</th>
-                <th>Calls</th>
-                <th>AHT</th>
-                <th>QA</th>
-                <th>FCR</th>
-                <th>Cost / Call</th>
-                <th>Unproductive Hours</th>
-                <th>Slack Cost</th>
-              </tr>
-            </thead>
+       <div className="responsive-table tall-table">
+  <table>
+    <thead>
+      <tr>
+        <th>Agent</th>
+        <th>Vendor</th>
+        <th>Supervisor</th>
+        <th>Schedule</th>
+        <th>Login / Logout</th>
+        <th>Calls</th>
+        <th>AHT</th>
+        <th>QA</th>
+        <th>OCR</th>
+        <th>Cost / Call</th>
+        <th>Unproductive Hours</th>
+        <th>Unproductive Cost</th>
+      </tr>
+    </thead>
 
-            <tbody>
+    <tbody>
               {sortedAgents.map((agent) => (
                 <tr key={agent.employeeId}>
                   <td>
