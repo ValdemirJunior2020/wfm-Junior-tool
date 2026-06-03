@@ -269,7 +269,7 @@ function AgentsPage() {
 
                   <td>{Number(agent.qaScore).toFixed(1)}%</td>
 
-                  <td>{Number(agent.fcrScore).toFixed(1)}%</td>
+                 <td>{Number(agent.ocrScore || agent.fcrScore || 0).toFixed(1)}%</td>
 
                   <td>{formatMoney(agent.costPerCall)}</td>
 
